@@ -1,0 +1,10 @@
+pip show numpy
+pip show astropy
+
+On gr-radio_astro (Raspian Version 10 - )
+numpy 1.21.0
+astropy 4.3.1
+
+On home R-pi (Raspian Version 11 - Bullseye)
+numpy 1.22.3
+astropy 5.0.4
