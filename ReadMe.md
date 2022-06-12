@@ -11,7 +11,29 @@ For background on Astropy, see their website and examples:
 https://www.astropy.org/
 https://docs.astropy.org/en/stable/generated/examples/coordinates/plot_obs-planning.html#sphx-glr-generated-examples-coordinates-plot-obs-planning-py
 
-Specific notes and examples are provided below, and are also included in the headers of the scripts.
+
+The programs below provide a simple GUI for observers to use for real-time conversions between galactic and telescope coordinates.
+
+cc-to-aa.py
+****************************
+#Purpose:   GUI converts celestial coordinates to alt-az coordinates    
+#Example:   python cc-to-aa.py    
+#Note:      Uses current clock time    
+
+gc-to-aa.py
+****************************
+#Purpose:   GUI converts galactic coordinates to alt-az coordinates    
+#Example:   python gc-to-aa.py    
+#Note:      Uses current clock time    
+
+aa-to-gc.py
+****************************
+#Purpose:   GUI converts alt-az coordinates to galactic coordinates
+#Example:   python aa-to-gc.py    
+#Note:      Uses current clock time 
+
+The converter program below allows for command-line conversions in the tty window. 
+The user also has the option of choosing between clock time and a day/time of their choosing.
 
 converter.py
 ****************************
@@ -24,6 +46,8 @@ converter.py
 #Example:    python converter.py -f 5 -alt 45 -az 60    
 #Example:    python converter.py -f 6 -alt 45 -az 60    
 #Notes:      Program uses clock time from Pi (but there is option to enter manually)    
+
+Finally, the scripts below create various plots that are useful for planning observations.
 
 plot_gc.py
 ****************************
@@ -52,14 +76,3 @@ plot_sun.py
 #Example:   python plot_sun.py    
 #Note:      Be sure to input the latitude, longitude. Date and time do not matter.    
 
-cc-to-aa.py
-****************************
-#Purpose:   GUI converts celestial coordinates to alt-az coordinates    
-#Example:   python cc-to-aa.py    
-#Note:      Uses current clock time    
-
-gc-to-aa.py
-****************************
-#Purpose:   GUI converts galactic coordinates to alt-az coordinates    
-#Example:   python gc-to-aa.py    
-#Note:      Uses current clock time    
