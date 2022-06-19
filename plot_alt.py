@@ -1,8 +1,7 @@
 #Name        plot_alt.py
 #Purpose:    Creates scatter plot of altitude vs time for specified object, over 24 hours 
 #Purpose:    Includes altitudes of the sun and moon
-#Usage:      python plot_alt.py -day 2021-09-23 -glat 0 -glong 180 
-#Notes:      Altitudes of sun and moon are always at az=180 degrees. Object azimuth may be different
+#Usage:      python plot_alt.py -day 2022-06-20 -timezone -5  -glat 0 -glong 180
 #Reference:  https://docs.astropy.org/en/stable/generated/examples/coordinates/plot_obs-planning.html#sphx-glr-generated-examples-coordinates-plot-obs-planning-py
 
 import numpy as np
@@ -16,21 +15,22 @@ quantity_support()
 
 import argparse
 parser = argparse.ArgumentParser(description='plot_altaz.py')
+parser.add_argument("-day", "--day", help="Enter date 2021-09-23", type=str)
+parser.add_argument("-timezone", "--timezone", help="Enter-5 for summer -6 for winter", type=float)
 parser.add_argument("-glong", "--glong", help="Enter galactic longitude in degrees", type=float)
 parser.add_argument("-glat", "--glat", help="Enter galactic latitude in degrees", type=float)
-parser.add_argument("-day", "--day", help="Enter date 2021-09-23", type=str)
 args = parser.parse_args()
 GALLON=args.glong
 GALLAT=args.glat
 day=args.day
+timezone=args.timezone
 
 #Program uses information below for calculations
+print("Make sure latitude and longitude are correct within script")
 Chicago = EarthLocation(lat=41.867*u.deg, lon=-87.630*u.deg, height=0*u.m)
-utcoffset = -5*u.hour
-dateandtime=day+" 12:00:00" #Do not change the clock time from 12:00
-date=dateandtime[0:10]
+utcoffset = -timezone*u.hour #Adjust to -6.0 from Nov-Mar, -5.0 during summer
+dateandtime=day+" 12:00:00"  #do not change clock time
 noon = Time(dateandtime) - utcoffset
-time_zone=-5.0  #Adjust to -6.0 from Nov-Mar
 
 delta_noon = np.linspace(-12, +12, 1000)*u.hour
 times=noon+delta_noon
@@ -61,7 +61,7 @@ plt.xticks((np.arange(13)*2-12)*u.hour)
 plt.ylim(0*u.deg, 90*u.deg)
 plt.xlabel('Hours Relative to Local Noon')
 plt.ylabel('Altitude [deg]')
-plt.title(str(date)+" GLONG, GLAT "+str(GALLON)+"   "+str(GALLAT))
+plt.title(dateandtime+" GLONG, GLAT "+str(GALLON)+"   "+str(GALLAT))
 plt.show()
 
 exit()
