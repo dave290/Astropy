@@ -1,5 +1,5 @@
 #Name:       converter.py
-#Purpose:    Convert coordinates, using current clock time (options below)
+#Purpose:    Performs coordinate conversions between galactic, celestial and telescope
 #Usage:      1-gc:aa, 2-gc:cc, 3-cc:aa, 4-cc:gc, 5-aa:gc, 6-aa:cc
 #Usage:      python converter.py -f 1 -glong 180 -glat 5
 #Usage:      python converter.py -f 2 -glong 180 -glat 5
@@ -7,9 +7,6 @@
 #Usage:      python converter.py -f 4 -ra 12:20:00 -dec 40.5
 #Usage:      python converter.py -f 5 -alt 45 -az 60
 #Usage:      python converter.py -f 6 -alt 45 -az 60
-#Notes:      See DATETIME options in script. Default is to use current clock time
-#Notes:      Uses Chicago latitude and longitude
-#Notes:	     Updated April 1, 2022
 
 import numpy as np
 from datetime import datetime
@@ -32,28 +29,32 @@ GALLON=args.glong;GALLAT=args.glat
 RA=args.ra;DEC=args.dec
 ALT=args.alt;AZ=args.az
 
-#Location Info
-LAT=41.867; LON=-87.630
-Chicago = EarthLocation(lat=LAT*u.deg, lon=LON*u.deg, height=0*u.m)
-
-#DATETIME OPTION 1: Set Date and Time Manually
-#LOCALTIME="2022-06-08 12:00:0.0"  #enter local time manually
-#time_zone=-5.0                    #-6.0 from Nov-Mar (STANDARD TIME), -5.0 for Mar-Nov (DST)
-#utcoffset = time_zone*u.hour
-#UNIVERSALTIME = Time(LOCALTIME) - utcoffset
-
-#DATETIME OPTION 2: Use Current Clock Time to automatically find universal time
-UNIVERSALTIME=Time.now()
-
-print(" ")
-print("Universal Time")
-print(UNIVERSALTIME)
 print(" ")
 print("1-gc:aa, 2-gc:cc, 3-cc:aa, 4-cc:gc, 5-aa:gc, 6-aa:cc")
 print("aa use -alt and -az")
 print("gc use -glong and -glat")
 print("cc use -ra and -dec")
 print("for ra only, example=01h22.5m")
+print(" ")
+
+#Location Info
+LATITUDE=41.867; LONGITUDE=-87.630
+Chicago = EarthLocation(lat=LATITUDE*u.deg, lon=LONGITUDE*u.deg, height=0*u.m)
+print("Latitude",LATITUDE,"Longitude",LONGITUDE)
+
+#DATETIME OPTION 1: Use Current Clock Time to automatically find universal time
+UNIVERSALTIME=Time.now()
+
+#DATETIME OPTION 2: Set Date and Time Manually
+#LOCALTIME="2022-06-19 21:32:0.0"  #enter local time manually
+#time_zone=-5.0                    #-6.0 from Nov-Mar (STANDARD TIME), -5.0 for Mar-Nov (DST)
+#utcoffset = time_zone*u.hour
+#UNIVERSALTIME = Time(LOCALTIME) - utcoffset
+
+print(" ")
+print("Universal Time")
+print(UNIVERSALTIME)
+print("Uses clock time by default.  To set date and time manually, see directions in script")
 print(" ")
 
 #F1-Convert galactic to alt-az coordinates

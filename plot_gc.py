@@ -1,8 +1,8 @@
 #plot_gc.py
 #Purpose:    Creates scatter plot of glat vs glong over 24 h period for a constant alt-az
-#Usage:      python plot_gc.py -alt 70 -az 180
+#Usage:      python plot_gc.py -az 180 -alt 70 
 #Reference:  https://docs.astropy.org/en/stable/generated/examples/coordinates/plot_obs-planning.html#sphx-glr-generated-examples-coordinates-plot-obs-planning-py
-#Notes:      Actual start date and time do not matter
+#Notes:      Starting date/time and timezone do not matter
 
 import numpy as np
 import astropy.units as u
@@ -12,10 +12,11 @@ from astropy.coordinates import SkyCoord, EarthLocation, AltAz
 import matplotlib.pyplot as plt
 
 #Program uses information below for calculations
-print("Starting date and time do not matter. Nothing to input")
-LAT=+41.867; LON=-87.630
+LATITUDE=+41.867; LONGITUDE=-87.630
 start_time="2021-01-01 12:00:00.000000" #Actual start date and time do not matter
 time_zone=-5.0                          #Time zone does not matter
+print("Starting date and time do not matter. Nothing to input")
+print("Latitude",LATITUDE,"Longitude",LONGITUDE)
 
 import argparse
 parser = argparse.ArgumentParser(description='plot_gc.py')
@@ -26,7 +27,7 @@ altitude=args.alt
 azimuth=args.az
 
 #Define alt-az coordinates
-Chicago = EarthLocation(lat=LAT*u.deg, lon=LON*u.deg, height=0*u.m)
+Chicago = EarthLocation(lat=LATITUDE*u.deg, lon=LONGITUDE*u.deg, height=0*u.m)
 utcoffset = time_zone*u.hour
 
 ax=plt.axes()
@@ -56,7 +57,7 @@ for i in range(360):
     x.append(i)
     y.append(0)
 ax.scatter(x,y,marker=".")
-
+plt.grid()
 plt.show()
 exit()
 

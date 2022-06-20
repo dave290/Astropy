@@ -37,7 +37,7 @@ The user also has the option of choosing between clock time and a day/time of th
 
 converter.py
 ****************************
-#Purpose:    Convert coordinates, using current clock time (options below)    
+#Purpose:    Performs coordinate conversions between galactic, celestial and telescope 
 #Usage:      1-gc:aa, 2-gc:cc, 3-cc:aa, 4-cc:gc, 5-aa:gc, 6-aa:cc    
 #Example:    python converter.py -f 1 -glong 180 -glat 5    
 #Example:    python converter.py -f 2 -glong 180 -glat 5    
@@ -65,10 +65,8 @@ plot_alt.py
 plot_altaz.py
 ****************************
 #Purpose:    Creates scatter plot of altitude vs azimuth for specified object, over 24 hours    
-#Purpose:    Includes altitudes of the sun and moon    
-#Example:    python plot_altaz.py -glong 180 -glat 0    
-#Notes:      Be sure to input the latitude, longitude, date and time zone.  Do not change time. from 12:00    
-#Notes:      Altitudes of sun and moon are always at az=180 degrees. Object azimuth may be different    
+#Usage:      python plot_altaz.py -day 2022-06-20 -glat 0 -glong 180  
+#Notes:      User must enter Latitude, longitude, and time zone in script.  Do not change time from 12:00      
 
 plot_sun.py
 ****************************

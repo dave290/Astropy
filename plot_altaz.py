@@ -1,6 +1,7 @@
 #Name        plot_altaz.py
 #Purpose:    Creates scatter plot of altitude vs azimuth for specified object, over 24 hours 
-#Usage:      python plot_altaz.py -day 2022-06-20 -timezone -5  -glat 0 -glong 180
+#Usage:      python plot_altaz.py -day 2022-06-20 -glat 0 -glong 180
+#Notes:      User must enter Latitude, longitude, and time zone in script.  Do not change time from 12:00      
 #Reference:  https://docs.astropy.org/en/stable/generated/examples/coordinates/plot_obs-planning.html#sphx-glr-generated-examples-coordinates-plot-obs-planning-py
 
 import numpy as np
@@ -15,19 +16,18 @@ quantity_support()
 import argparse
 parser = argparse.ArgumentParser(description='plot_altaz.py')
 parser.add_argument("-day", "--day", help="Enter date 2021-09-23", type=str)
-parser.add_argument("-timezone", "--timezone", help="Enter-5 for summer -6 for winter", type=float)
 parser.add_argument("-glong", "--glong", help="Enter galactic longitude in degrees", type=float)
 parser.add_argument("-glat", "--glat", help="Enter galactic latitude in degrees", type=float)
 args = parser.parse_args()
 GALLON=args.glong
 GALLAT=args.glat
 day=args.day
-timezone=args.timezone
 
 #Program uses information below for calculations
-print("Make sure latitude and longitude are correct within script")
-Chicago = EarthLocation(lat=41.867*u.deg, lon=-87.630*u.deg, height=0*u.m)
-utcoffset = -timezone*u.hour #Adjust to -6.0 from Nov-Mar, -5.0 during summer
+LATITUDE=+41.867; LONGITUDE=-87.630; TIMEZONE=-5.0 #-5 summer (DST), -6 winter
+print("Latitude",LATITUDE,"Longitude",LONGITUDE,"Timezone",TIMEZONE)
+Chicago = EarthLocation(lat=LATITUDE*u.deg, lon=LONGITUDE*u.deg, height=0*u.m)
+utcoffset = -TIMEZONE*u.hour
 dateandtime=day+" 12:00:00"  #do not change clock time
 noon = Time(dateandtime) - utcoffset
 
