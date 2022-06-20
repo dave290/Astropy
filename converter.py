@@ -46,7 +46,7 @@ print("Latitude",LATITUDE,"Longitude",LONGITUDE)
 UNIVERSALTIME=Time.now()
 
 #DATETIME OPTION 2: Set Date and Time Manually
-#LOCALTIME="2022-06-19 21:32:0.0"  #enter local time manually
+#LOCALTIME="2022-06-19 10:30:0.0"  #enter local time manually
 #time_zone=-5.0                    #-6.0 from Nov-Mar (STANDARD TIME), -5.0 for Mar-Nov (DST)
 #utcoffset = time_zone*u.hour
 #UNIVERSALTIME = Time(LOCALTIME) - utcoffset
