@@ -43,13 +43,13 @@ Chicago = EarthLocation(lat=LATITUDE*u.deg, lon=LONGITUDE*u.deg, height=0*u.m)
 print("Latitude",LATITUDE,"Longitude",LONGITUDE)
 
 #DATETIME OPTION 1: Use Current Clock Time to automatically find universal time
-UNIVERSALTIME=Time.now()
+#UNIVERSALTIME=Time.now()
 
 #DATETIME OPTION 2: Set Date and Time Manually
-#LOCALTIME="2022-06-25 07:30:0.0"  #enter local time manually
-#time_zone=-5.0                    #-6.0 from Nov-Mar (STANDARD TIME), -5.0 for Mar-Nov (DST)
-#utcoffset = time_zone*u.hour
-#UNIVERSALTIME = Time(LOCALTIME) - utcoffset
+LOCALTIME="2021-09-10 07:30:0.0"  #enter local time manually
+time_zone=-5.0                    #-6.0 from Nov-Mar (STANDARD TIME), -5.0 for Mar-Nov (DST)
+utcoffset = time_zone*u.hour
+UNIVERSALTIME = Time(LOCALTIME) - utcoffset
 
 print(" ")
 print("Universal Time")
