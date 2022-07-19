@@ -12,14 +12,14 @@ import astropy.units as u
 from datetime import datetime
 from astropy.time import Time
 
-observationtime='2021-09-10 01:40:54' #this is UNIVERSAL time, written to .ast files
+observationtime='2020-09-22 00:20:00' #this is UNIVERSAL time, written to .ast files
 home=EarthLocation.from_geodetic(lat=41.867, lon=-87.630, height=0)
 
-"""
+
 #######################################################################################################
 #OPTION 1: ENTER GALACTIC COORDINATES
 #######################################################################################################
-GALLON=96.0;GALLAT=33.0
+GALLON=60.0;GALLAT=+17.0
 #North ecliptic (orbital) pole is GALLON=96, GALLAT=+30.  This is where barycentric correction ~0 km/s 
 gc=SkyCoord(l=GALLON*u.degree, b=GALLAT*u.degree, frame='galactic')
 barycorr=gc.radial_velocity_correction(obstime=Time(observationtime), location=home)
@@ -68,7 +68,7 @@ print(heliocorr.to(u.km/u.s)-barycorr.to(u.km/u.s))
 print("total correction: includes orbital and rotational corrections")
 print(heliocorr.to(u.km/u.s))
 print(" ")
-
+"""
 
 #######################################################################################################
 #CALCULATE DOPPLER SHIFTED VELOCITY USING MEASURED FREQUENCY

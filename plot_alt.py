@@ -28,7 +28,8 @@ LATITUDE=+41.867; LONGITUDE=-87.630; TIMEZONE=-5.0 #-5 summer (DST), -6 winter
 print("Latitude",LATITUDE,"Longitude",LONGITUDE,"Timezone",TIMEZONE)
 Chicago = EarthLocation(lat=LATITUDE*u.deg, lon=LONGITUDE*u.deg, height=0*u.m)
 utcoffset = -TIMEZONE*u.hour
-dateandtime=day+" 12:00:00"  #do not change clock time
+#dateandtime=day+" 12:00:00"  #do not change clock time
+dateandtime=day
 noon = Time(dateandtime) - utcoffset
 
 delta_noon = np.linspace(-12, +12, 1000)*u.hour
