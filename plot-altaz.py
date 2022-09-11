@@ -1,6 +1,6 @@
-#Name        plot_altaz.py
+#Name        plot-altaz.py
 #Purpose:    Creates scatter plot of altitude vs azimuth for specified object, over 24 hours 
-#Usage:      python plot_altaz.py -day 2022-06-20 -glat 0 -glong 180
+#Usage:      python plot-altaz.py -day 2022-06-20 -glat 0 -glong 180
 #Notes:      User must enter Latitude, longitude, and time zone in script.  Do not change time from 12:00      
 #Reference:  https://docs.astropy.org/en/stable/generated/examples/coordinates/plot_obs-planning.html#sphx-glr-generated-examples-coordinates-plot-obs-planning-py
 

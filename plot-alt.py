@@ -1,7 +1,7 @@
-#Name        plot_alt.py
+#Name        plot-alt.py
 #Purpose:    Creates scatter plot of altitude vs time for specified object, over 24 hours 
 #Purpose:    Includes altitudes of the sun and moon
-#Usage:      python plot_alt.py -day 2022-06-20 -glat 0 -glong 180
+#Usage:      python plot-alt.py -day 2022-06-20 -glat 0 -glong 180
 #Reference:  https://docs.astropy.org/en/stable/generated/examples/coordinates/plot_obs-planning.html#sphx-glr-generated-examples-coordinates-plot-obs-planning-py
 
 import numpy as np
@@ -25,7 +25,8 @@ day=args.day
 
 #Program uses information below for calculations
 LATITUDE=+41.867; LONGITUDE=-87.630; TIMEZONE=-5.0 #-5 summer (DST), -6 winter
-print("Latitude",LATITUDE,"Longitude",LONGITUDE,"Timezone",TIMEZONE)
+print("Latitude",LATITUDE,"Longitude",LONGITUDE)
+print("Time correction in hours "+str(TIMEZONE)+"  where -5 for DST-summer and -6 for ST-winter")
 Chicago = EarthLocation(lat=LATITUDE*u.deg, lon=LONGITUDE*u.deg, height=0*u.m)
 utcoffset = -TIMEZONE*u.hour
 #dateandtime=day+" 12:00:00"  #do not change clock time

@@ -1,5 +1,5 @@
-#plot_sun.py
-#Usage:      python plot_sun.py
+#plot-sun.py
+#Usage:      python plot-sun.py
 #Purpose:    Creates scatter plot of GALLAT vs GALLON for sun over 12 month period.
 #Purpose:    Prints GLAT,GLON for Sun's daily position to terminal window.
 #Reference:  https://docs.astropy.org/en/stable/generated/examples/coordinates/plot_obs-planning.html#sphx-glr-generated-examples-coordinates-plot-obs-planning-py

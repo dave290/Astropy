@@ -60,22 +60,22 @@ plot-gc-interval.py
 #Purpose:    Creates scatter plot of glat vs glong for observing time period specified by user
 #Usage:      python plot_gc.py -az 180 -alt 70 -day 2021-09-25 -time 09:00 -hours 8.5
 
-plot_alt.py
+plot-alt.py
 ****************************
 #Purpose:    Creates scatter plot of altitude vs time for specified object, over 24 hours    
 #Purpose:    Includes altitudes of the sun and moon    
-#Example:    python plot_alt.py -day 2021-09-23 -glong 180 -glat 0    
+#Example:    python plot-alt.py -day 2021-09-23 -glong 180 -glat 0    
 #Notes:      Altitudes of sun and moon are always at az=180 degrees. Object azimuth may be different    
 
-plot_altaz.py
+plot-altaz.py
 ****************************
 #Purpose:    Creates scatter plot of altitude vs azimuth for specified object, over 24 hours    
-#Usage:      python plot_altaz.py -day 2022-06-20 -glat 0 -glong 180  
+#Usage:      python plot-altaz.py -day 2022-06-20 -glat 0 -glong 180  
 #Notes:      User must enter Latitude, longitude, and time zone in script.  Do not change time from 12:00      
 
-plot_sun.py
+plot-sun.py
 ****************************
 #Purpose:   Creates scatter plot of GALLAT vs GALLON for sun over 12-month period.    
-#Example:   python plot_sun.py    
+#Example:   python plot-sun.py    
 #Note:      Be sure to input the latitude, longitude. Date and time do not matter.    
 
