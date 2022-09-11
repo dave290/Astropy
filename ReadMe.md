@@ -49,11 +49,16 @@ converter.py
 
 Finally, the scripts below create various plots that are useful for planning observations.
 
-plot_gc.py
+plot-gc.py
 ****************************
 #Purpose:    Creates scatter plot of glat vs glong over 24 h period for a constant alt-az    
 #Example:    python plot_gc.py -alt 70 -az 180    
 #Notes:      Actual start date and time do not matter    
+
+plot-gc-interval.py
+****************************
+#Purpose:    Creates scatter plot of glat vs glong for observing time period specified by user
+#Usage:      python plot_gc.py -az 180 -alt 70 -day 2021-09-25 -time 09:00 -hours 8.5
 
 plot_alt.py
 ****************************
