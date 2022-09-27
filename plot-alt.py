@@ -1,7 +1,7 @@
 #Name        plot-alt.py
 #Purpose:    Creates scatter plot of altitude vs time for specified object, over 24 hours 
 #Purpose:    Includes altitudes of the sun and moon
-#Usage:      python plot-alt.py -day 2022-06-20 -glat 0 -glong 180
+#Usage:      python plot-alt.py -glat 0 -glong 180
 #Reference:  https://docs.astropy.org/en/stable/generated/examples/coordinates/plot_obs-planning.html#sphx-glr-generated-examples-coordinates-plot-obs-planning-py
 
 import numpy as np
@@ -15,27 +15,28 @@ quantity_support()
 
 import argparse
 parser = argparse.ArgumentParser(description='plot_altaz.py')
-parser.add_argument("-day", "--day", help="Enter date 2021-09-23", type=str)
 parser.add_argument("-glong", "--glong", help="Enter galactic longitude in degrees", type=float)
 parser.add_argument("-glat", "--glat", help="Enter galactic latitude in degrees", type=float)
 args = parser.parse_args()
 GALLON=args.glong
 GALLAT=args.glat
-day=args.day
 
 #Program uses information below for calculations
-LATITUDE=+41.867; LONGITUDE=-87.630; TIMEZONE=-5.0 #-5 summer (DST), -6 winter
+LATITUDE=+41.867; LONGITUDE=-87.630
 print("Latitude",LATITUDE,"Longitude",LONGITUDE)
+TIMEZONE=-5.0    #-5 summer (DST), -6 winter (CST)
 print("Time correction in hours "+str(TIMEZONE)+"  where -5 for DST-summer and -6 for ST-winter")
 Chicago = EarthLocation(lat=LATITUDE*u.deg, lon=LONGITUDE*u.deg, height=0*u.m)
-utcoffset = -TIMEZONE*u.hour
-#dateandtime=day+" 12:00:00"  #do not change clock time
-dateandtime=day
-noon = Time(dateandtime) - utcoffset
+utcoffset = TIMEZONE*u.hour
+LOCALNOON="2022-09-26 12:00:00"
+UNIVERSALNOON = Time(LOCALNOON) - utcoffset
+print("Noon in Local Time ",LOCALNOON)
+print("Noon in Universal Time ",UNIVERSALNOON)
 
 delta_noon = np.linspace(-12, +12, 1000)*u.hour
-times=noon+delta_noon
-frame = AltAz(obstime=noon+delta_noon,location=Chicago)
+times=UNIVERSALNOON+delta_noon
+
+frame = AltAz(obstime=UNIVERSALNOON+delta_noon,location=Chicago)
 
 #Calculate Alt-Az for specified object
 gc=SkyCoord(l=GALLON*u.degree, b=GALLAT*u.degree, frame='galactic')
@@ -62,7 +63,7 @@ plt.xticks((np.arange(13)*2-12)*u.hour)
 plt.ylim(0*u.deg, 90*u.deg)
 plt.xlabel('Hours Relative to Local Noon')
 plt.ylabel('Altitude [deg]')
-plt.title(dateandtime+" GLONG, GLAT "+str(GALLON)+"   "+str(GALLAT))
+plt.title(LOCALNOON+" GLONG, GLAT "+str(GALLON)+"   "+str(GALLAT))
 plt.show()
 
 exit()
