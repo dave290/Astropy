@@ -1,7 +1,7 @@
 #Name        plot-altaz.py
 #Purpose:    Creates scatter plot of altitude vs azimuth for specified object, over 24 hours 
-#Usage:      python plot-altaz.py -day 2022-06-20 -glat 0 -glong 180
-#Notes:      User must enter Latitude, longitude, and time zone in script.  Do not change time from 12:00      
+#Usage:      python plot-altaz.py -glat 0 -glong 180
+#Notes:      User must enter Latitude and longitude.  Day and time do not matter.      
 #Reference:  https://docs.astropy.org/en/stable/generated/examples/coordinates/plot_obs-planning.html#sphx-glr-generated-examples-coordinates-plot-obs-planning-py
 
 import numpy as np
@@ -15,36 +15,32 @@ quantity_support()
 
 import argparse
 parser = argparse.ArgumentParser(description='plot_altaz.py')
-parser.add_argument("-day", "--day", help="Enter date 2021-09-23", type=str)
 parser.add_argument("-glong", "--glong", help="Enter galactic longitude in degrees", type=float)
 parser.add_argument("-glat", "--glat", help="Enter galactic latitude in degrees", type=float)
 args = parser.parse_args()
 GALLON=args.glong
 GALLAT=args.glat
-day=args.day
 
 #Program uses information below for calculations
-LATITUDE=+41.867; LONGITUDE=-87.630; TIMEZONE=-5.0 #-5 summer (DST), -6 winter
-print("Latitude",LATITUDE,"Longitude",LONGITUDE,"Timezone",TIMEZONE)
+LATITUDE=+41.867; LONGITUDE=-87.630
+print("Latitude",LATITUDE,"Longitude",LONGITUDE)
 Chicago = EarthLocation(lat=LATITUDE*u.deg, lon=LONGITUDE*u.deg, height=0*u.m)
-utcoffset = -TIMEZONE*u.hour
-dateandtime=day+" 12:00:00"  #do not change clock time
-noon = Time(dateandtime) - utcoffset
+time = Time("2022-01-01 12:00:00")
+print("Day and time do not matter")
 
-delta_noon = np.linspace(-12, 12, 1000)*u.hour
-times=noon+delta_noon
-frame = AltAz(obstime=noon+delta_noon,location=Chicago)
+delta = np.linspace(-12, 12, 1000)*u.hour
+times=time+delta
+frame = AltAz(obstime=times,location=Chicago)
 
 #Calculate Alt-Az for specified object
 gc=SkyCoord(l=GALLON*u.degree, b=GALLAT*u.degree, frame='galactic')
 objectaltazs=gc.transform_to(frame)
 
 #Plot the data
-plt.plot(objectaltazs.az, objectaltazs.alt, color='b', label="Object")
-plt.legend(loc='upper left')
+plt.plot(objectaltazs.az, objectaltazs.alt, color='b')
 plt.xlabel('Azimuth [deg]')
 plt.ylabel('Altitude [deg]')
-plt.title("Date,GalLon,GalLat "+dateandtime+"   "+str(GALLON)+"   "+str(GALLAT))
+plt.title("GalLon,  "+str(GALLON)+"   Gallat,  "+str(GALLAT))
 plt.show()
 
 exit()

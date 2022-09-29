@@ -1,14 +1,16 @@
-#plot-gc.py
+#Name:       plot-gc.py
 #Purpose:    Creates scatter plot of glat vs glong over 24 h period for a constant alt-az
 #Usage:      python plot_gc.py -az 180 -alt 70 
 #Reference:  https://docs.astropy.org/en/stable/generated/examples/coordinates/plot_obs-planning.html#sphx-glr-generated-examples-coordinates-plot-obs-planning-py
+#Reference:  https://docs.astropy.org/en/stable/coordinates/index.html
 #Notes:      Starting date/time and timezone do not matter
 
 import numpy as np
-import astropy.units as u
+#import astropy.units as u
+from astropy import units as u
 from astropy.time import Time
 from datetime import datetime
-from astropy.coordinates import SkyCoord, EarthLocation, AltAz
+from astropy.coordinates import SkyCoord, EarthLocation, AltAz, Galactic
 import matplotlib.pyplot as plt
 
 #Read data provided by user
@@ -22,14 +24,11 @@ azimuth=args.az
 
 #Program uses information below for calculations
 LATITUDE=+41.867; LONGITUDE=-87.630
-start_time="2021-01-01 12:00:00.000000" #Actual start date and time do not matter
-time_zone=-5.0                          #Time zone does not matter
-print("Starting date and time do not matter. Nothing to input")
-print("Latitude",LATITUDE,"Longitude",LONGITUDE)
-
-#Define alt-az coordinates
 Chicago = EarthLocation(lat=LATITUDE*u.deg, lon=LONGITUDE*u.deg, height=0*u.m)
-utcoffset = time_zone*u.hour
+print("Latitude",LATITUDE,"Longitude",LONGITUDE)
+print("Starting date and time do not matter.")
+
+frame=Galactic
 
 ax=plt.axes()
 ax.set_title("Altitude, Azimuth, "+str(altitude)+", "+str(azimuth))
@@ -40,16 +39,14 @@ plt.xlabel('Galactic Longitude (degrees)')
 plt.ylabel('Galactic Latitude (degrees)')
 for i in range(96):   #15 minute steps
     j=0.25*i
-    k=j*u.hour        #this puts j in terms of hours
-    time=Time(start_time)-utcoffset+k
-    aa=SkyCoord(alt=altitude*u.degree,az=azimuth*u.degree,frame='altaz',obstime=time,location=Chicago)
-    gc=aa.galactic
+    k=j*u.hour
+    time=Time("2022-01-01 12:00:00")+k   
+    aa=SkyCoord(obstime=time,location=Chicago,alt=altitude*u.degree,az=azimuth*u.degree,frame='altaz')
+    gc=aa.transform_to(frame)
     gallon=gc.l.deg,1
     gallat=gc.b.deg,1
     gallon=float(gallon[0])
     gallat=float(gallat[0])
-    #print(k)
-    #print(gallon)
     ax.scatter(gallon,gallat)
 
 #Generate a line passing through galactic latitude of zero degrees

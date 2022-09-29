@@ -17,12 +17,8 @@ from astropy.coordinates import get_sun
 
 #SITE AND TIME (program calculates ALT-AZ using this data, then converts to GALLON-GALLAT)
 LocalSite = EarthLocation(lat=41.867*u.deg, lon=-87.630*u.deg, height=0*u.m)
-utcoffset =-5.0*u.hour                  #Time zone = -6 for NOV-MAR, -5 for MAR-NOV (DST)
-start_time="2021-12-18 12:00:00.000000" #Enter local time here
-                                        # 12/18 is when SUN is at GLONG=0 (Sun and GC have same Right ascension)
-                                        # 3/? is when Sun is at GLONG=90
-                                        # 6/?  is when Sun is at GLONG=180
-                                        # 9/? is when Sun is at GLONG=270
+utcoffset =-6.0*u.hour
+start_time="2021-12-18 12:00:00.000000" #12/18 is when SUN is at GLONG=0 (Sun and GC have same Right ascension)
 
 ax=plt.axes()
 ax.set_title("Sun in Galactic Coordinates")
@@ -34,14 +30,14 @@ ax.set_yticks([-70,-60,-50,-40,-30,-20,-10,0,10,20,30,40,50,60,70])
 
 for i in range(366):
     k=i*u.day
-    UNIVERSALTIME=Time(start_time)-utcoffset+k
-    print("Local Time",UNIVERSALTIME+utcoffset)
+    time=Time(start_time)+k
+    print("Local Time",time)
 
-    frame = AltAz(obstime=UNIVERSALTIME,location=LocalSite)
-    sunaltazs = get_sun(UNIVERSALTIME).transform_to(frame)
+    frame = AltAz(obstime=time,location=LocalSite)
+    sunaltazs = get_sun(time).transform_to(frame)
     altitude=float(sunaltazs.alt.deg)
     azimuth=float(sunaltazs.az.deg)
-    aa=SkyCoord(alt=altitude*u.degree,az=azimuth*u.degree,frame='altaz',obstime=UNIVERSALTIME,location=LocalSite)
+    aa=SkyCoord(alt=altitude*u.degree,az=azimuth*u.degree,frame='altaz',obstime=time,location=LocalSite)
     
     gc=aa.galactic
     GALLON=float(gc.l.deg)
@@ -56,10 +52,7 @@ for i in range(366):
     print("DEC ",DEC)
     print(" ")
 
-    #exit the loop to print GALLON and GALLAT for a desired starting date/time
-    #exit()
-
-    ax.scatter(GALLON,GALLAT,label=i)
+    ax.scatter(GALLON,GALLAT)
 plt.show()
 exit()
 

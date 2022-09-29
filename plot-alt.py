@@ -2,6 +2,7 @@
 #Purpose:    Creates scatter plot of altitude vs time for specified object, over 24 hours 
 #Purpose:    Includes altitudes of the sun and moon
 #Usage:      python plot-alt.py -glat 0 -glong 180
+#Notes:      Requires latitude, longitude, day and local time, all entered in script below
 #Reference:  https://docs.astropy.org/en/stable/generated/examples/coordinates/plot_obs-planning.html#sphx-glr-generated-examples-coordinates-plot-obs-planning-py
 
 import numpy as np
@@ -35,7 +36,6 @@ print("Noon in Universal Time ",UNIVERSALNOON)
 
 delta_noon = np.linspace(-12, +12, 1000)*u.hour
 times=UNIVERSALNOON+delta_noon
-
 frame = AltAz(obstime=UNIVERSALNOON+delta_noon,location=Chicago)
 
 #Calculate Alt-Az for specified object

@@ -18,7 +18,6 @@ parser.add_argument("-az", "--az", help="Enter azimuth in degrees", type=float)
 parser.add_argument("-day", "--day", help="Enter day like 2021-09-12", type=str)
 parser.add_argument("-time", "--time", help="Enter starting local time like 09:00", type=str)
 parser.add_argument("-hours", "--hours", help="Enter duration in decimal hours like 4.5", type=float)
-
 args = parser.parse_args()
 altitude=args.alt
 azimuth=args.az
@@ -28,13 +27,14 @@ duration=args.hours
 
 #Program uses information below for calculations
 LATITUDE=+41.867; LONGITUDE=-87.630
+Chicago = EarthLocation(lat=LATITUDE*u.deg, lon=LONGITUDE*u.deg, height=0*u.m)
+print("Latitude",LATITUDE,"Longitude",LONGITUDE)
+
 time_zone=-5.0                # -5 for DST (summer) and -6 for ST (winter)
 utcoffset = time_zone*u.hour
 start_time=startday+" "+starttime
 print("Local Starting Time "+start_time)
 print("Time correction in hours "+str(time_zone)+"  where -5 for DST-summer and -6 for ST-winter")
-print("Latitude ",LATITUDE,"  Longitude ",LONGITUDE)
-Chicago = EarthLocation(lat=LATITUDE*u.deg, lon=LONGITUDE*u.deg, height=0*u.m)
 
 ax=plt.axes()
 ax.set_title("Altitude, Azimuth, "+str(altitude)+", "+str(azimuth))
@@ -67,5 +67,3 @@ ax.scatter(x,y,marker=".")
 plt.grid()
 plt.show()
 exit()
-
-parser.add_argument("-hours", "--hours", help="Enter duration in decimal hours", type=float)
