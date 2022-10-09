@@ -2,8 +2,9 @@
 # converts galactic coordinates into telescope coordinates
 # Input and output GUI using tkinter
 # Uses Chicago latitude and longitude
-# Uses current time from R-Pi only
-# April 1, 2022
+# Uses local time, with the option to add a delay when planning for longer scans
+# For example: if scan lasts 10 min, then user sets DELAY for 5 min to "center" the coordinates
+# October 8, 2022
 
 from tkinter import *
 import numpy as np
@@ -14,15 +15,20 @@ from astropy.coordinates import SkyCoord, EarthLocation, AltAz
 
 #Location and Time Info
 LAT=41.867; LON=-87.630
-Chicago = EarthLocation(lat=LAT*u.deg, lon=LON*u.deg, height=0*u.m)
-UNIVERSALTIME = Time.now()
-print("Universal Time")
+Chicago=EarthLocation(lat=LAT*u.deg, lon=LON*u.deg, height=0*u.m)
+delayinminutes=0     #For example, if running a 10 min scan, user should enter 5 min delay here
+DELAY=delayinminutes*u.min    
+UNIVERSALTIME = Time.now()+DELAY
+print("Universal Time Now")
+print(Time.now())
+print("Delay entered by user",DELAY)
+print("Universal Time with Delay")
 print(UNIVERSALTIME)
 
 def convert():
-    UNIVERSALTIME = Time.now()
-    print("Universal Time")
-    print(UNIVERSALTIME)
+    UNIVERSALTIME = Time.now()+DELAY
+    #print("Universal Time")
+    #print(UNIVERSALTIME)
     output1.delete("1.0","end")
     output2.delete("1.0","end")    
     GALLON=float(ent1.get())

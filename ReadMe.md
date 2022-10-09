@@ -64,14 +64,14 @@ plot-alt.py
 ****************************
 #Purpose:    Creates scatter plot of altitude vs time for specified object, over 24 hours    
 #Purpose:    Includes altitudes of the sun and moon    
-#Example:    python plot-alt.py -day 2021-09-23 -glong 180 -glat 0    
+#Example:    python plot-alt.py -glong 180 -glat 0    
 #Notes:      Altitudes of sun and moon are always at az=180 degrees. Object azimuth may be different    
 
 plot-altaz.py
 ****************************
 #Purpose:    Creates scatter plot of altitude vs azimuth for specified object, over 24 hours    
-#Usage:      python plot-altaz.py -day 2022-06-20 -glat 0 -glong 180  
-#Notes:      User must enter Latitude, longitude, and time zone in script.  Do not change time from 12:00      
+#Usage:      python plot-altaz.py -glat 0 -glong 180  
+#Notes:      User must enter Latitude, longitude, and time zone in script.  Day and time do not matter.     
 
 plot-sun.py
 ****************************

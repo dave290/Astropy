@@ -1,4 +1,4 @@
-#plot-gc-interval.py
+#Name	     plot-gc-interval.py
 #Purpose:    Creates scatter plot of glat vs glong for observing time period specified by user
 #Usage:      python plot_gc.py -az 180 -alt 70 -day 2021-09-25 -time 09:00 -hours 8.5
 #Reference:  https://docs.astropy.org/en/stable/generated/examples/coordinates/plot_obs-planning.html#sphx-glr-generated-examples-coordinates-plot-obs-planning-py
@@ -7,7 +7,7 @@ import numpy as np
 import astropy.units as u
 from astropy.time import Time
 from datetime import datetime
-from astropy.coordinates import SkyCoord, EarthLocation, AltAz
+from astropy.coordinates import SkyCoord, EarthLocation, AltAz, Galactic
 import matplotlib.pyplot as plt
 
 #Read data provided by user
@@ -36,27 +36,28 @@ start_time=startday+" "+starttime
 print("Local Starting Time "+start_time)
 print("Time correction in hours "+str(time_zone)+"  where -5 for DST-summer and -6 for ST-winter")
 
+#Create arrays to represent altitude and azimuth.  
+alt_array=[altitude]
+azi_array=[azimuth]
+npoints=500
+for i in range(npoints-1):  
+    alt_array.append(altitude)
+    azi_array.append(azimuth)
+
+hour=np.linspace(0,duration,npoints)*u.hour
+times=Time(start_time)-utcoffset+hour
+frame=AltAz(obstime=times,location=Chicago)
+aa=SkyCoord(alt=alt_array*u.deg,az=azi_array*u.deg,obstime=times,location=Chicago,frame='altaz')
+gc=aa.transform_to(Galactic)
+
+#Plot data
 ax=plt.axes()
 ax.set_title("Altitude, Azimuth, "+str(altitude)+", "+str(azimuth))
-#ax.set_xlim(0,240)
+ax.scatter(gc.l*u.deg,gc.b*u.deg)
 ax.set_xticks([0,40,80,120,160,200,240,280,320,360])
 ax.set_yticks([-90,-80,-70,-60,-50,-40,-30,-20,-10,0,10,20,30,40,50,60,70,80,90])
 plt.xlabel('Galactic Longitude (degrees)')
 plt.ylabel('Galactic Latitude (degrees)')
-max=int(duration*4)
-for i in range(max):   #15 minute steps
-    j=0.25*i
-    k=j*u.hour        #this puts j in terms of hours
-    time=Time(start_time)-utcoffset+k
-    aa=SkyCoord(alt=altitude*u.degree,az=azimuth*u.degree,frame='altaz',obstime=time,location=Chicago)
-    gc=aa.galactic
-    gallon=gc.l.deg,1
-    gallat=gc.b.deg,1
-    gallon=float(gallon[0])
-    gallat=float(gallat[0])
-    #print(k)
-    #print(gallon)
-    ax.scatter(gallon,gallat)
 
 #Generate a line passing through galactic latitude of zero degrees
 x=[0];y=[0]

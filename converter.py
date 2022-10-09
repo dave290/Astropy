@@ -41,13 +41,13 @@ print(" ")
 LATITUDE=41.867; LONGITUDE=-87.630
 Chicago = EarthLocation(lat=LATITUDE*u.deg, lon=LONGITUDE*u.deg, height=0*u.m)
 print("Latitude",LATITUDE,"Longitude",LONGITUDE)
-
+'''
 #DATETIME OPTION 1: Use Current Clock Time to automatically find universal time
 UNIVERSALTIME=Time.now()
 print("Using clock time.  To set date and time manually, see directions in script")
 '''
 #DATETIME OPTION 2: Set Date and Time Manually
-LOCALTIME="2022-09-26 20:32:0.0"  #enter local time manually
+LOCALTIME="2022-12-18 12:00:00"  #enter local time manually
 time_zone=-5.0                    #-6.0 Nov-Mar (CENTRAL STANDARD TIME), -5.0 Mar-Nov (DST)
 utcoffset = time_zone*u.hour
 UNIVERSALTIME = Time(LOCALTIME) - utcoffset
@@ -55,7 +55,7 @@ print("Using local time entered into script by user.")
 print(LOCALTIME)
 print("Time zone correction=",time_zone)
 print("To use clock time, see directions in script.")
-'''
+#'''
 print("Universal Time")
 print(UNIVERSALTIME)
 
